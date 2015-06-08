@@ -39,7 +39,8 @@ ln -sTf $VENDOR_DIR /app/.heroku/vendor
 CACHED_PROTOBUF_TARBALL="$CACHE_DIR/protobuf.tgz"
 if [ -z "$PROTOBUF_TARBALL_URL" ]; then
     #PROTOBUF_TARBALL_URL=https://protobuf.s3.amazonaws.com/protobuf-2.4.1.tgz
-    PROTOBUF_TARBALL_URL=https://github.com/google/protobuf/releases/download/v2.6.1/protobuf-2.6.1.tar.gz
+    PROTOBUF_TARBALL_URL=http://lichen.egfit.com/nirvana/gz/protobuf-2.6.1.tgz
+    #PROTOBUF_TARBALL_URL=https://github.com/google/protobuf/releases/download/v2.6.1/protobuf-2.6.1.tar.gz
 fi
 
 log "downloading protobuf from $PROTOBUF_TARBALL_URL"
@@ -50,7 +51,7 @@ else
     MD5_HEADER=()
 fi
 
-#curl -sSo $CACHED_PROTOBUF_TARBALL \ "${MD5_HEADER[@]}" $PROTOBUF_TARBALL_URL
-wget $PROTOBUF_TARBALL_URL -O $CACHED_PROTOBUF_TARBALL
+curl -sfSo $CACHED_PROTOBUF_TARBALL  "${MD5_HEADER[@]}" $PROTOBUF_TARBALL_URL
+#wget $PROTOBUF_TARBALL_URL -O $CACHED_PROTOBUF_TARBALL
 
 tar xzf $CACHED_PROTOBUF_TARBALL -C $VENDOR_DIR
